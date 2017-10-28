@@ -1,3 +1,5 @@
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+
 import java.util.Scanner;
 public class BattleShips {
 
@@ -9,7 +11,14 @@ public class BattleShips {
             }
         }
         printOcean(ocean);
-        ocean = placeUserShips(ocean);
+        for (int i = 0; i < 5; i++) {
+            ocean = placeUserShips(ocean);
+        }
+        printOcean(ocean);
+        System.out.println("Computer is deploying ships");
+        for (int i = 0; i < 5; i++) {
+            ocean = placeComputerShips(ocean, 0);
+        }
         printOcean(ocean);
     }
 
@@ -43,7 +52,7 @@ public class BattleShips {
         while (y < 0 || y > 9) {
             y = input.nextInt();
         }
-        System.out.println("Coords --> "+ x + "," + y);
+        //System.out.println("Coords --> "+ x + "," + y);
         for (int row = 0; row < ocean.length; row++) {
             for (int col = 0; col < ocean[row].length; col++) {
                 if (row == y && col == x) {
@@ -58,6 +67,32 @@ public class BattleShips {
         }
         return ocean;
     }
+
+    public static char[][] placeComputerShips(char[][] ocean, int count) {
+        int x = (int)Math.floor(Math.random() * 10);
+        int y = (int)Math.floor(Math.random() * 10);
+        while (x < 0 || x > 9) {
+            x = (int)Math.floor(Math.random() * 10);
+        }
+        while (y < 0 || y > 9) {
+            y = (int)Math.floor(Math.random() * 10);
+        }
+        for (int row = 0; row < ocean.length; row++) {
+            for (int col = 0; col < ocean[row].length; col++) {
+                if (row == y && col == x) {
+                    if (ocean[row][col] != ' ') {
+                        System.out.println("Computer cannot place its ship here.");
+                        placeUserShips(ocean);
+                    } else {
+                        ocean[row][col] = '2';
+                        System.out.println(count + ". ship DEPLOYED");
+                    }
+                }
+            }
+        }
+        return ocean;
+    }
+
 
 
 }
