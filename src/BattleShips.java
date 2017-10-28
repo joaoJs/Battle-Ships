@@ -20,6 +20,7 @@ public class BattleShips {
             ocean = placeComputerShips(ocean, 0);
         }
         printOcean(ocean);
+        usersTurn(ocean);
     }
 
     public static void printOcean(char[][] ocean) {
@@ -52,18 +53,11 @@ public class BattleShips {
         while (y < 0 || y > 9) {
             y = input.nextInt();
         }
-        //System.out.println("Coords --> "+ x + "," + y);
-        for (int row = 0; row < ocean.length; row++) {
-            for (int col = 0; col < ocean[row].length; col++) {
-                if (row == y && col == x) {
-                    if (ocean[row][col] != ' ') {
-                        System.out.println("You cannot place your ship here.");
-                        placeUserShips(ocean);
-                    } else {
-                        ocean[row][col] = '1';
-                    }
-                }
-            }
+        if (ocean[y][x] != ' ') {
+            System.out.println("You cannot place your ship here.");
+            placeUserShips(ocean);
+        } else {
+            ocean[y][x] = '1';
         }
         return ocean;
     }
@@ -77,20 +71,40 @@ public class BattleShips {
         while (y < 0 || y > 9) {
             y = (int)Math.floor(Math.random() * 10);
         }
+        if (ocean[y][x] != ' ') {
+            System.out.println("Computer cannot place its ship here.");
+            placeUserShips(ocean);
+        } else {
+            ocean[y][x] = '2';
+            System.out.println(count + ". ship DEPLOYED");
+        }
+        return ocean;
+    }
+
+    public static void usersTurn(char[][] ocean) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter X coordinate for your ship: ");
+        int x = input.nextInt();
+        while (x < 0 || x > 9) {
+            x = input.nextInt();
+        }
+        System.out.print("Enter Y coordinate for your ship: ");
+        int y = input.nextInt();
+        while (y < 0 || y > 9) {
+            y = input.nextInt();
+        }
         for (int row = 0; row < ocean.length; row++) {
             for (int col = 0; col < ocean[row].length; col++) {
                 if (row == y && col == x) {
-                    if (ocean[row][col] != ' ') {
-                        System.out.println("Computer cannot place its ship here.");
-                        placeUserShips(ocean);
+                    if (ocean[row][col] == 'X') {
+                        System.out.println("This target has already been guessed.");
+                        usersTurn(ocean);
                     } else {
-                        ocean[row][col] = '2';
-                        System.out.println(count + ". ship DEPLOYED");
+                        ocean[row][col] = 'X';
                     }
                 }
             }
         }
-        return ocean;
     }
 
 
