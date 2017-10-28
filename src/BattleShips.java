@@ -65,12 +65,6 @@ public class BattleShips {
     public static char[][] placeComputerShips(char[][] ocean, int count) {
         int x = (int)Math.floor(Math.random() * 10);
         int y = (int)Math.floor(Math.random() * 10);
-        while (x < 0 || x > 9) {
-            x = (int)Math.floor(Math.random() * 10);
-        }
-        while (y < 0 || y > 9) {
-            y = (int)Math.floor(Math.random() * 10);
-        }
         if (ocean[y][x] != ' ') {
             System.out.println("Computer cannot place its ship here.");
             placeUserShips(ocean);
@@ -93,20 +87,41 @@ public class BattleShips {
         while (y < 0 || y > 9) {
             y = input.nextInt();
         }
-        for (int row = 0; row < ocean.length; row++) {
-            for (int col = 0; col < ocean[row].length; col++) {
-                if (row == y && col == x) {
-                    if (ocean[row][col] == 'X') {
-                        System.out.println("This target has already been guessed.");
-                        usersTurn(ocean);
-                    } else {
-                        ocean[row][col] = 'X';
-                    }
-                }
-            }
+        if (ocean[y][x] == '2') {
+            System.out.println("Boom! You sunk the ship!");
+            ocean[y][x] = '!';
+        } else if (ocean[y][x] == '1') {
+            System.out.println("Oh no, you sunk your own ship :(");
+            ocean[y][x] = 'x';
+        } else  {
+            System.out.println("Sorry, you missed");
+            ocean[y][x] = '-';
         }
     }
 
+    public static void computersTurn(char[][] ocean) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter X coordinate for your ship: ");
+        int x = input.nextInt();
+        while (x < 0 || x > 9) {
+            x = input.nextInt();
+        }
+        System.out.print("Enter Y coordinate for your ship: ");
+        int y = input.nextInt();
+        while (y < 0 || y > 9) {
+            y = input.nextInt();
+        }
+        if (ocean[y][x] == '2') {
+            System.out.println("Boom! You sunk the ship!");
+            ocean[y][x] = '!';
+        } else if (ocean[y][x] == '1') {
+            System.out.println("Oh no, you sunk your own ship :(");
+            ocean[y][x] = 'x';
+        } else  {
+            System.out.println("Sorry, you missed");
+            ocean[y][x] = '-';
+        }
+    }
 
 
 }
