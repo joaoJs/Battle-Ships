@@ -116,7 +116,7 @@ public class BattleShips {
         while (y < 0 || y > 9) {
             y = input.nextInt();
         }
-        if (ocean[y][x] == '-') {
+        if (ocean[y][x] == '-' || ocean[y][x] == '!' || ocean[y][x] == 'x') {
             usersTurn(ocean);
         } else {
             System.out.println("YOUR TURN");
