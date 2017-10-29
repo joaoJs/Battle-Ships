@@ -139,7 +139,7 @@ public class BattleShips {
     public static char[][] computersTurn(char[][] ocean) {
         int x = (int)Math.floor(Math.random() * 10);
         int y = (int)Math.floor(Math.random() * 10);
-        if (ocean[y][x] == 'c') {
+        if (ocean[y][x] == 'c' || ocean[y][x] == '-' || ocean[y][x] == '!' || ocean[y][x] == 'x') {
             computersTurn(ocean);
         } else {
             System.out.println("COMPUTER TURN");
